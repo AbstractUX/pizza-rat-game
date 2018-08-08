@@ -8,17 +8,33 @@ export default class PizzaRatGame extends Component {
     yourWeight: 0,
     enemyWeight: 0,
     yourTurn: true,
-    pizzaData: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    pizzaData: []
+  }
+  getRandomPizzaData = (numOfPizza) => {
+    let pizzaData = [];
+
+    for (let i = 0; i < numOfPizza; i++) {
+        let randomNum = Math.floor(Math.random() * 10);
+        pizzaData.push({id: i, size: randomNum})
+    }
+
+    return pizzaData;
+  }
+  componentWillMount() {
+    let pizzaData = this.getRandomPizzaData(12);
+    this.setState(() => ({
+      pizzaData
+    }));
   }
   renderPizzas = () => {
-    let jsxOfPizzas = this.state.pizzaData.map((size) => {
+    let jsxOfPizzas = this.state.pizzaData.map((eachPizzaData) => {
       return <div className="left">
-        <Pizza size={size} addToWeight={this.addToWeight} yourTurn={this.state.yourTurn} />
-      </div>
+               <Pizza size={eachPizzaData.size} eatPizza={this.eatPizza} yourTurn={this.state.yourTurn} id={eachPizzaData.id} />
+             </div>
     })
     return (<div>{jsxOfPizzas}</div>)
   }
-  addToWeight = (weight, whoseWeight) => {
+  eatPizza = (weight, whoseWeight, id) => {
     if (whoseWeight === 'yourWeight') {
       this.setState((prevState) => ({
         yourWeight: prevState.yourWeight + weight,
