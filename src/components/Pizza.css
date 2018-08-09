@@ -4,3 +4,11 @@
   border: 2px solid black;
   padding: 0.2rem;
 }
+
+.pizza-blue {
+  background: blue;
+}
+
+.pizza-red {
+  background: red;
+}
