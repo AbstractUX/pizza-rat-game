@@ -36,3 +36,30 @@
   width: 12rem;
   height: 1.8rem;
 }
+
+@media (max-width: 480px) {
+  .App-header {
+    background-color: #222;
+    height: 20px;
+    padding: 20px;
+    color: white;
+  }
+
+  .App-title {
+    font-size: 1em;
+  }
+
+  .App-logo {
+    display: none;
+  }
+
+  .dark-bold {
+      font-weight: bold;
+      font-size: 1em;
+  }
+
+  .large-button {
+    width: 8rem;
+    height: 1.4rem;
+  }
+}

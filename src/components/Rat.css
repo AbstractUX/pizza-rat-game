@@ -2,3 +2,10 @@
   height: 10rem;
   width: 16rem;
 }
+
+@media (max-width: 480px) {
+  .rat {
+    height: 4rem;
+    width: 6rem;
+  }
+}

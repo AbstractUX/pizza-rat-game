@@ -12,3 +12,13 @@
 .pizza-red {
   background: red;
 }
+
+@media (max-width: 480px) {
+
+  .pizza {
+    height: 2rem;
+    width: 2rem;
+    border: 2px solid black;
+    padding: 0.2rem;
+  }
+}

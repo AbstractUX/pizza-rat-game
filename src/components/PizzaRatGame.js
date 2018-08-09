@@ -9,7 +9,8 @@ export default class PizzaRatGame extends Component {
     yourWeight: 0,
     enemyWeight: 0,
     yourTurn: true,
-    pizzaData: []
+    pizzaData: [],
+    pizzaRemaining: 10
   }
   getRandomPizzaData = (numOfPizza) => {
     let pizzaData = [];
@@ -22,7 +23,7 @@ export default class PizzaRatGame extends Component {
     return pizzaData;
   }
   componentWillMount() {
-    let pizzaData = this.getRandomPizzaData(12);
+    let pizzaData = this.getRandomPizzaData(this.state.pizzaRemaining);
     this.setState(() => ({
       pizzaData
     }));
@@ -39,26 +40,31 @@ export default class PizzaRatGame extends Component {
     if (whoseWeight === 'yourWeight') {
       this.setState((prevState) => ({
         yourWeight: prevState.yourWeight + weight,
-        yourTurn: !prevState.yourTurn
+        yourTurn: !prevState.yourTurn,
+        pizzaRemaining: prevState.pizzaRemaining - 1
       }));
     } else if (whoseWeight === 'enemyWeight') {
       this.setState((prevState) => ({
         enemyWeight: prevState.enemyWeight + weight,
-        yourTurn: !prevState.yourTurn
+        yourTurn: !prevState.yourTurn,
+        pizzaRemaining: prevState.pizzaRemaining - 1
       }));
     }
   }
   componentDidUpdate() {
     if (this.state.yourWeight === 21) {
-      alert("Congratulations, you hit 21 lbs and won the game!")
+      alert("Congratulations, you hit 21 lbs and won the game!");
     } else if (this.state.enemyWeight === 21) {
-      alert("Bummer, the enemy rat hit 21 lbs and won the game")
+      alert("Bummer, the enemy rat hit 21 lbs and won the game");
     };
     if (this.state.yourWeight > 21) {
-      alert("Bummer, your rat got too fat and you lose the game")
+      alert("Bummer, your rat got too fat and you lose the game");
     } else if (this.state.enemyWeight > 21) {
       alert("Congratulations, the enemy rat got too fat so you win the game!")
     };
+    if (this.state.pizzaRemaining === 0) {
+      alert("There are no more pizza left. The game is a draw.")
+    }
   }
   render() {
     return (<div>
