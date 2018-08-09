@@ -48,6 +48,18 @@ export default class PizzaRatGame extends Component {
       }));
     }
   }
+  componentDidUpdate() {
+    if (this.state.yourWeight === 21) {
+      alert("Congratulations, you hit 21 lbs and won the game!")
+    } else if (this.state.enemyWeight === 21) {
+      alert("Bummer, the enemy rat hit 21 lbs and won the game")
+    };
+    if (this.state.yourWeight > 21) {
+      alert("Bummer, your rat got too fat and you lose the game")
+    } else if (this.state.enemyWeight > 21) {
+      alert("Congratulations, the enemy rat got too fat so you win the game!")
+    };
+  }
   render() {
     return (<div>
               <h1>{this.state.yourTurn ? 'It is your turn' : 'It is the enemy\'s turn'}</h1>
