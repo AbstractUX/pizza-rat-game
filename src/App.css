@@ -9,7 +9,7 @@
 
 .App-header {
   background-color: #222;
-  height: 150px;
+  height: 120px;
   padding: 20px;
   color: white;
 }
@@ -30,4 +30,9 @@
 .dark-bold {
   font-weight: bold;
   font-size: 2em;
+}
+
+.large-button {
+  width: 12rem;
+  height: 1.8rem;
 }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Rat from './Rat';
 import Pizza from './Pizza';
+import HowToPlay from './HowToPlay';
 import './PizzaRatGame.css';
 
 export default class PizzaRatGame extends Component {
@@ -50,6 +51,7 @@ export default class PizzaRatGame extends Component {
   render() {
     return (<div>
               <h1>{this.state.yourTurn ? 'It is your turn' : 'It is the enemy\'s turn'}</h1>
+              <HowToPlay />
               <div className="left">
                 <Rat weight={this.state.yourWeight} />
               </div>
