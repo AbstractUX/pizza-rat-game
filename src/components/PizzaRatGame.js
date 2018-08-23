@@ -67,17 +67,30 @@ export default class PizzaRatGame extends Component {
   checkIfAnyoneWon = () => {
     if (this.state.yourWeight === 21) {
       alert("Congratulations, you hit 21 lbs and won the game!");
+      this.endGame('you');
     } else if (this.state.enemyWeight === 21) {
       alert("Bummer, the enemy rat hit 21 lbs and won the game");
+      this.endGame('enemy');
     };
     if (this.state.yourWeight > 21) {
       alert("Bummer, your rat got too fat and you lose the game");
+      this.endGame('enemy');
     } else if (this.state.enemyWeight > 21) {
       alert("Congratulations, the enemy rat got too fat so you win the game!")
+      this.endGame('you');
     };
     if (this.state.pizzaRemaining === 0) {
-      alert("There are no more pizza left. The game is a draw.")
+      alert("There are no more pizza left. Since you went first, the enemy automatically won the game")
+      this.endGame('enemy');
     }
+  }
+  endGame = (whoWon) => {
+    this.setState((prevState) => {
+      return {
+        gameOver: true
+      }
+    });
+    //TODO: Make the remaining uneaten pizzas turn black and unclickable
   }
   enemyMakesAMove = () => {
     // Enemy makes a move logic here
