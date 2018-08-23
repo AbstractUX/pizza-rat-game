@@ -10,14 +10,15 @@ export default class PizzaRatGame extends Component {
     enemyWeight: 0,
     yourTurn: true,
     pizzaData: [],
-    pizzaRemaining: 10
+    pizzaRemaining: 12,
+    gameOver: false
   }
   getRandomPizzaData = (numOfPizza) => {
     let pizzaData = [];
 
     for (let i = 0; i < numOfPizza; i++) {
-        let randomNum = Math.floor(Math.random() * 10);
-        pizzaData.push({id: i, size: randomNum})
+        let randomNum = Math.floor(Math.random() * 8);
+        pizzaData.push({id: i, size: randomNum, eatenBy: null})
     }
 
     return pizzaData;
@@ -31,27 +32,42 @@ export default class PizzaRatGame extends Component {
   renderPizzas = () => {
     let jsxOfPizzas = this.state.pizzaData.map((eachPizzaData) => {
       return <div className="left">
-               <Pizza size={eachPizzaData.size} eatPizza={this.eatPizza} yourTurn={this.state.yourTurn} id={eachPizzaData.id} />
+               <Pizza size={eachPizzaData.size} eatenBy={eachPizzaData.eatenBy} eatPizza={this.eatPizza} yourTurn={this.state.yourTurn} id={eachPizzaData.id} />
              </div>
     })
     return (<div>{jsxOfPizzas}</div>)
   }
-  eatPizza = (weight, whoseWeight, id) => {
+  eatPizza = (weight, whoseWeight, id, eatenBy) => {
+    console.log(this.state.pizzaData);
     if (whoseWeight === 'yourWeight') {
-      this.setState((prevState) => ({
-        yourWeight: prevState.yourWeight + weight,
-        yourTurn: !prevState.yourTurn,
-        pizzaRemaining: prevState.pizzaRemaining - 1
-      }));
+      this.setState((prevState) => {
+        const newState = { ...prevState };
+        newState.pizzaData = [...prevState.pizzaData];
+        newState.pizzaData[id] = {
+          ...prevState.pizzaData[id],
+          eatenBy: eatenBy
+        }
+        return {
+          yourWeight: prevState.yourWeight + weight,
+          yourTurn: !prevState.yourTurn,
+          pizzaRemaining: prevState.pizzaRemaining - 1,
+          //TODO: Add code to update the eatenBy state for the pizzaData with the id passed in
+          pizzaData: newState.pizzaData
+        }
+      });
     } else if (whoseWeight === 'enemyWeight') {
-      this.setState((prevState) => ({
-        enemyWeight: prevState.enemyWeight + weight,
-        yourTurn: !prevState.yourTurn,
-        pizzaRemaining: prevState.pizzaRemaining - 1
-      }));
+      this.setState((prevState) => {
+        return {
+          enemyWeight: prevState.enemyWeight + weight,
+          yourTurn: !prevState.yourTurn,
+          pizzaRemaining: prevState.pizzaRemaining - 1
+          //TODO: Add code to update the eatenBy state for the pizzaData with the id passed in
+        }
+      });
     }
+    this.checkIfAnyoneWon();
   }
-  componentDidUpdate() {
+  checkIfAnyoneWon = () => {
     if (this.state.yourWeight === 21) {
       alert("Congratulations, you hit 21 lbs and won the game!");
     } else if (this.state.enemyWeight === 21) {
@@ -64,6 +80,19 @@ export default class PizzaRatGame extends Component {
     };
     if (this.state.pizzaRemaining === 0) {
       alert("There are no more pizza left. The game is a draw.")
+    }
+  }
+  enemyMakesAMove = () => {
+    //TODO: enemy makes a move logic here
+
+
+    //TODO: set yourTurn state back to true
+  }
+  componentDidUpdate() {
+    if (!this.state.yourTurn) {
+        setTimeout(() => {
+          this.enemyMakesAMove();
+        }, 1000);
     }
   }
   render() {
