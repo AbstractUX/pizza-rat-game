@@ -38,33 +38,30 @@ export default class PizzaRatGame extends Component {
     return (<div>{jsxOfPizzas}</div>)
   }
   eatPizza = (weight, whoseWeight, id, eatenBy) => {
-    console.log(this.state.pizzaData);
+    let addToYourWeight = 0;
+    let addToEnemyWeight = 0;
+
     if (whoseWeight === 'yourWeight') {
-      this.setState((prevState) => {
-        const newState = { ...prevState };
-        newState.pizzaData = [...prevState.pizzaData];
-        newState.pizzaData[id] = {
-          ...prevState.pizzaData[id],
-          eatenBy: eatenBy
-        }
-        return {
-          yourWeight: prevState.yourWeight + weight,
-          yourTurn: !prevState.yourTurn,
-          pizzaRemaining: prevState.pizzaRemaining - 1,
-          //TODO: Add code to update the eatenBy state for the pizzaData with the id passed in
-          pizzaData: newState.pizzaData
-        }
-      });
-    } else if (whoseWeight === 'enemyWeight') {
-      this.setState((prevState) => {
-        return {
-          enemyWeight: prevState.enemyWeight + weight,
-          yourTurn: !prevState.yourTurn,
-          pizzaRemaining: prevState.pizzaRemaining - 1
-          //TODO: Add code to update the eatenBy state for the pizzaData with the id passed in
-        }
-      });
+      addToYourWeight = weight;
+    } else {
+      addToEnemyWeight = weight;
     }
+
+    this.setState((prevState) => {
+      const newState = { ...prevState };
+      newState.pizzaData = [...prevState.pizzaData];
+      newState.pizzaData[id] = {
+        ...prevState.pizzaData[id],
+        eatenBy: eatenBy
+      }
+      return {
+        yourWeight: prevState.yourWeight + addToYourWeight,
+        enemyWeight: prevState.enemyWeight + addToEnemyWeight,
+        yourTurn: !prevState.yourTurn,
+        pizzaRemaining: prevState.pizzaRemaining - 1,
+        pizzaData: newState.pizzaData
+      }
+    });
     this.checkIfAnyoneWon();
   }
   checkIfAnyoneWon = () => {
@@ -83,10 +80,10 @@ export default class PizzaRatGame extends Component {
     }
   }
   enemyMakesAMove = () => {
-    //TODO: enemy makes a move logic here
-
-
-    //TODO: set yourTurn state back to true
+    // Enemy makes a move logic here
+    const uneatenPizzas = this.state.pizzaData.filter(eachPizzaData => eachPizzaData.eatenBy === null); // Get array of uneaten pizzas
+    const randomUneatenPizza = uneatenPizzas[Math.floor(Math.random()*uneatenPizzas.length)]; // Pick a random uneaten pizza
+    this.eatPizza(randomUneatenPizza.size, 'enemyWeight', randomUneatenPizza.id, 'enemy'); // Eat it
   }
   componentDidUpdate() {
     if (!this.state.yourTurn) {

@@ -3,17 +3,9 @@ import pizza from '../img/pizza.png';
 import './Pizza.css';
 
 export default class Pizza extends Component {
-  // state = {
-  //   eaten: null
-  // }
-  // makePizzaEaten = () => {
-    // this.setState(() => ({
-    //   eaten: this.props.yourTurn ? 'byYou' : 'byEnemy'
-    // }));
-  // }
   handleEatPizza = (weightToAddNext) => {
-    this.props.eatPizza(this.props.size, weightToAddNext, this.props.id, this.props.eatenBy);
-    // this.makePizzaEaten();
+    const whoAteIt = this.props.yourTurn ? 'you' : 'enemy';
+    this.props.eatPizza(this.props.size, weightToAddNext, this.props.id, whoAteIt);
   }
   render() {
     const yourTurn = this.props.yourTurn;
