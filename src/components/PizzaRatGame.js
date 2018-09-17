@@ -95,8 +95,16 @@ export default class PizzaRatGame extends Component {
   enemyMakesAMove = () => {
     // Enemy makes a move logic here
     const uneatenPizzas = this.state.pizzaData.filter(eachPizzaData => eachPizzaData.eatenBy === null); // Get array of uneaten pizzas
-    const randomUneatenPizza = uneatenPizzas[Math.floor(Math.random()*uneatenPizzas.length)]; // Pick a random uneaten pizza
-    this.eatPizza(randomUneatenPizza.size, 'enemyWeight', randomUneatenPizza.id, 'enemy'); // Eat it
+    const enemyAdvantagePizzas = uneatenPizzas.filter(eachUneatenPizza => eachUneatenPizza.size + this.state.yourWeight === 21);
+
+    if (enemyAdvantagePizzas.length > 0) {
+      const randomEnemyAdvantagePizza = enemyAdvantagePizzas[Math.floor(Math.random()*enemyAdvantagePizzas.length)];
+      this.eatPizza(randomEnemyAdvantagePizza.size, 'enemyWeight', randomEnemyAdvantagePizza.id, 'enemy');
+    } else {
+      const randomUneatenPizza = uneatenPizzas[Math.floor(Math.random()*uneatenPizzas.length)]; // Pick a random uneaten pizza
+      this.eatPizza(randomUneatenPizza.size, 'enemyWeight', randomUneatenPizza.id, 'enemy'); // Eat it
+    }
+
   }
   componentDidUpdate() {
     if (!this.state.yourTurn) {
