@@ -6,7 +6,7 @@ export default class Rat extends Component {
   render() {
     return (<div>
               <img className="rat" src={rat} alt="rat" />
-              <p className="dark-bold">Weighs: {this.props.weight} lbs</p>
+              <h3>Weighs: {this.props.weight} lbs</h3>
             </div>)
   }
 }

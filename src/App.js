@@ -12,7 +12,9 @@ class App extends Component {
           <img src={pizza} className="App-logo" alt="pizza logo" />
           <h1 className="App-title">Welcome to the Pizza Rat Game</h1>
         </header>
-        <PizzaRatGame />
+        <div>
+          <PizzaRatGame />
+        </div>
       </div>
     );
   }

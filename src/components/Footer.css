@@ -1,0 +1,28 @@
+footer {
+  position: fixed;
+  bottom: 0;
+  padding-bottom: 20px;
+  width: 100%;
+  height: 60px;
+  padding-left: 3px;
+  background: lightblue;
+}
+
+footer p {
+  font-size: 0.8rem;
+}
+
+@media (min-width: 768px) {
+  footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 30px;
+    padding-left: 8px;
+    background: lightblue;
+  }
+
+  footer p {
+    font-size: 1.2rem;
+  }
+}

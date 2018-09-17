@@ -3,6 +3,7 @@ import Rat from './Rat';
 import Pizza from './Pizza';
 import HowToPlay from './HowToPlay';
 import './PizzaRatGame.css';
+import Footer from './Footer';
 
 export default class PizzaRatGame extends Component {
   state = {
@@ -30,9 +31,9 @@ export default class PizzaRatGame extends Component {
     }));
   }
   renderPizzas = () => {
-    let jsxOfPizzas = this.state.pizzaData.map((eachPizzaData) => {
+    const jsxOfPizzas = this.state.pizzaData.map((eachPizzaData, i) => {
       return <div className="left">
-               <Pizza size={eachPizzaData.size} eatenBy={eachPizzaData.eatenBy} eatPizza={this.eatPizza} yourTurn={this.state.yourTurn} id={eachPizzaData.id} />
+               <Pizza key={eachPizzaData.id} size={eachPizzaData.size} eatenBy={eachPizzaData.eatenBy} eatPizza={this.eatPizza} yourTurn={this.state.yourTurn} id={eachPizzaData.id} />
              </div>
     })
     return (<div>{jsxOfPizzas}</div>)
@@ -80,7 +81,7 @@ export default class PizzaRatGame extends Component {
       this.endGame('you');
     };
     if (this.state.pizzaRemaining === 0) {
-      alert("There are no more pizza left. Since you went first, the enemy automatically won the game")
+      alert("There are no more pizzas left. Since you went first, the enemy automatically won the game")
       this.endGame('enemy');
     }
   }
@@ -90,7 +91,6 @@ export default class PizzaRatGame extends Component {
         gameOver: true
       }
     });
-    //TODO: Make the remaining uneaten pizzas turn black and unclickable
   }
   enemyMakesAMove = () => {
     // Enemy makes a move logic here
@@ -114,9 +114,10 @@ export default class PizzaRatGame extends Component {
     }
   }
   render() {
-    return (<div>
-              <h1>{this.state.yourTurn ? 'It is your turn' : 'It is the enemy\'s turn'}</h1>
-              <HowToPlay />
+    return (<div className="container">
+              {!this.state.gameOver && (this.state.yourTurn ? <h3>It is your turn</h3> : <h3>It is the enemy's turn</h3>)}
+              {this.state.gameOver && <div><h4>If you're tired of pizza, consider treating yourself to a container of <a href="https://amzn.to/2xsdlYD">David's cookies</a> :)</h4><button onClick={() => {window.location.reload()}}>Click here to play again!</button></div>}
+              {!this.state.gameOver && <HowToPlay />}
               <div className="left">
                 <Rat weight={this.state.yourWeight} />
               </div>
@@ -125,6 +126,9 @@ export default class PizzaRatGame extends Component {
               </div>
               <div className="pizza-container">
                 {this.renderPizzas()}
+              </div>
+              <div>
+                <Footer />
               </div>
             </div>)
   }
