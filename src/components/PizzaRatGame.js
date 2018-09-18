@@ -63,7 +63,7 @@ export default class PizzaRatGame extends Component {
         pizzaData: newState.pizzaData
       }
     });
-    this.checkIfAnyoneWon();
+
   }
   checkIfAnyoneWon = () => {
     if (this.state.yourWeight === 21) {
@@ -100,7 +100,7 @@ export default class PizzaRatGame extends Component {
     if (enemyAdvantagePizzas.length > 0) {
       const randomEnemyAdvantagePizza = enemyAdvantagePizzas[Math.floor(Math.random()*enemyAdvantagePizzas.length)];
       this.eatPizza(randomEnemyAdvantagePizza.size, 'enemyWeight', randomEnemyAdvantagePizza.id, 'enemy');
-    } else {
+    } else if (uneatenPizzas.length > 0) {
       const randomUneatenPizza = uneatenPizzas[Math.floor(Math.random()*uneatenPizzas.length)]; // Pick a random uneaten pizza
       this.eatPizza(randomUneatenPizza.size, 'enemyWeight', randomUneatenPizza.id, 'enemy'); // Eat it
     }
@@ -111,6 +111,9 @@ export default class PizzaRatGame extends Component {
         setTimeout(() => {
           this.enemyMakesAMove();
         }, 1000);
+    }
+    if (!this.state.gameOver) {
+      this.checkIfAnyoneWon();
     }
   }
   render() {
