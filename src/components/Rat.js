@@ -6,7 +6,7 @@ export default class Rat extends Component {
   render() {
     return (<div>
               <img className="rat" src={rat} alt="rat" />
-              <h3>Weighs: {this.props.weight} lbs</h3>
+              <h2 className="responsive-text">Weighs: {this.props.weight} lbs</h2>
             </div>)
   }
 }

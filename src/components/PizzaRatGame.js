@@ -115,11 +115,11 @@ export default class PizzaRatGame extends Component {
   }
   render() {
     return (<div className="container">
-              {!this.state.gameOver && (this.state.yourTurn ? <h3>It is your turn</h3> : <h3>It is the enemy's turn</h3>)}
               {this.state.gameOver && <div><h4>If you're tired of pizza, consider treating yourself to a container of <a href="https://amzn.to/2xsdlYD">David's cookies</a> :)</h4><button onClick={() => {window.location.reload()}}>Click here to play again!</button></div>}
-              {!this.state.gameOver && <HowToPlay />}
               <div className="left">
                 <Rat weight={this.state.yourWeight} />
+                {!this.state.gameOver && <HowToPlay />}
+                {!this.state.gameOver && (this.state.yourTurn ? <h3>It is your turn</h3> : <h3>Enemy's turn...</h3>)}
               </div>
               <div className="right">
                 <Rat weight={this.state.enemyWeight} />

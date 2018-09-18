@@ -48,6 +48,7 @@
 .dark-bold {
   font-weight: bold;
   font-size: 2em;
+  margin: 0.5rem auto 1rem;
 }
 
 .large-button {

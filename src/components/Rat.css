@@ -3,10 +3,18 @@
   width: 12rem;
 }
 
+.responsive-text {
+  font-size: 2em;
+}
+
 @media (max-width: 1480px) {
   .rat {
     height: 5rem;
     width: 8rem;
+  }
+
+  .responsive-text {
+    font-size: 1.5em;
   }
 }
 
@@ -14,5 +22,9 @@
   .rat {
     height: 4rem;
     width: 6rem;
+  }
+
+  .responsive-text {
+    font-size: 1em;
   }
 }
