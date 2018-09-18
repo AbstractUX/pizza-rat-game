@@ -32,8 +32,8 @@ export default class PizzaRatGame extends Component {
   }
   renderPizzas = () => {
     const jsxOfPizzas = this.state.pizzaData.map((eachPizzaData, i) => {
-      return <div className="left">
-               <Pizza key={eachPizzaData.id} size={eachPizzaData.size} eatenBy={eachPizzaData.eatenBy} eatPizza={this.eatPizza} yourTurn={this.state.yourTurn} id={eachPizzaData.id} />
+      return <div key={eachPizzaData.id} className="left">
+               <Pizza size={eachPizzaData.size} eatenBy={eachPizzaData.eatenBy} eatPizza={this.eatPizza} yourTurn={this.state.yourTurn} id={eachPizzaData.id} />
              </div>
     })
     return (<div>{jsxOfPizzas}</div>)
