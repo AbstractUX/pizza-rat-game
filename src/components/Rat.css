@@ -3,6 +3,13 @@
   width: 12rem;
 }
 
+@media (max-width: 1480px) {
+  .rat {
+    height: 5rem;
+    width: 8rem;
+  }
+}
+
 @media (max-width: 480px) {
   .rat {
     height: 4rem;
